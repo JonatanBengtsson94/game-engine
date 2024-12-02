@@ -11,7 +11,7 @@ GameObject::GameObject(const char *textureSheet) {
   }
 }
 
-void GameObject::update() {}
+void GameObject::update(float deltaTime) {}
 
 void GameObject::render() {
   SDL_RenderCopy(Game::renderer, texture, &srcRect, &destRect);

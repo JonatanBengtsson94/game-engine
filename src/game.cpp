@@ -1,6 +1,7 @@
 #include "game.h"
 #include "game_object.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_timer.h>
 #include <iostream>
 
 SDL_Renderer Game::*renderer = NULL;
@@ -36,6 +37,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
     return false;
   }
 
+  lastUpdate = 0;
   isRunning = true;
   return true;
 }
@@ -54,8 +56,11 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+  float time = SDL_GetTicks();
+  float deltaTime = (time - lastUpdate) / 1000.0f;
+  lastUpdate = time;
   for (auto &obj : gameObjects) {
-    obj->update();
+    obj->update(deltaTime);
   }
 }
 

@@ -24,6 +24,7 @@ public:
 private:
   bool isRunning;
   SDL_Window *window;
+  Uint32 lastUpdate;
   std::vector<GameObject *> gameObjects;
 };
 

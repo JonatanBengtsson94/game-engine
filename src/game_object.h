@@ -9,7 +9,7 @@ public:
   GameObject(const char *textureSheet);
   ~GameObject();
 
-  void update();
+  void update(float deltaTime);
   void render();
 
 private:
