@@ -1,4 +1,5 @@
 #include "game.h"
+#include "game_object.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -39,6 +40,8 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
   return true;
 }
 
+void Game::addGameObject(GameObject *obj) { gameObjects.push_back(obj); }
+
 void Game::handleEvents() {
   SDL_Event e;
 
@@ -50,11 +53,17 @@ void Game::handleEvents() {
   }
 }
 
-void Game::update() {}
+void Game::update() {
+  for (auto &obj : gameObjects) {
+    obj->update();
+  }
+}
 
 void Game::render() {
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
   SDL_RenderClear(renderer);
+  for (auto &obj : gameObjects) {
+    obj->render();
+  }
   SDL_RenderPresent(renderer);
 }
 

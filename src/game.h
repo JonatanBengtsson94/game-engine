@@ -1,8 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "game_object_manager.h"
 #include <SDL2/SDL_render.h>
+#include <vector>
+
+class GameObject;
 
 class Game {
 public:
@@ -12,6 +14,7 @@ public:
   static SDL_Renderer *renderer;
   bool init(const char *title, int xpos, int ypos, int width, int height,
             bool fullscreen);
+  void addGameObject(GameObject *obj);
   void handleEvents();
   void update();
   void render();
@@ -21,7 +24,7 @@ public:
 private:
   bool isRunning;
   SDL_Window *window;
-  GameObjectManager objectManager;
+  std::vector<GameObject *> gameObjects;
 };
 
 #endif
