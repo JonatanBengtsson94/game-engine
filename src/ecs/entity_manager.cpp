@@ -3,7 +3,7 @@
 
 EntityManager::EntityManager() {
   activeEntitiesCount = 0;
-  avaliableEntities.set();
+  avaliableEntities = 0xFFFF;
 }
 
 Entity EntityManager::createEntity() {
@@ -11,14 +11,14 @@ Entity EntityManager::createEntity() {
     throw std::runtime_error("Error: Maximum of entities reached.");
   }
 
-  Entity id = avaliableEntities._Find_first();
-  avaliableEntities.reset(id);
+  Entity id = __builtin_ctz(avaliableEntities);
+  avaliableEntities &= ~(1 << id);
   ++activeEntitiesCount;
   return id;
 }
 
 void EntityManager::destroyEntity(Entity entity) {
-  avaliableEntities.set(entity);
+  avaliableEntities |= (1 << entity);
   --activeEntitiesCount;
 }
 
