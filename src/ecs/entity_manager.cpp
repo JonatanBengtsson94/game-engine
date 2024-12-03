@@ -22,7 +22,9 @@ void EntityManager::destroyEntity(Entity entity) {
   --activeEntitiesCount;
 }
 
-void EntityManager::setSignature(Entity entity, Signature signature) {}
+void EntityManager::setSignature(Entity entity, Signature signature) {
+  signatures[entity] = signature;
+}
 
 Signature EntityManager::getSignature(Entity entity) {
   return signatures[entity];
