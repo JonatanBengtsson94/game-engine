@@ -2,11 +2,11 @@
 
 #include <array>
 #include <bitset>
-#include <vector>
+#include <deque>
 
 class Component;
 
-using Entity = std::uint32_t;
+using Entity = unsigned short;
 const Entity MAX_ENTITIES = 5000;
 
 using ComponentId = std::uint8_t;
@@ -20,9 +20,9 @@ template <typename T> inline ComponentId getComponentId() noexcept {
   return typeId;
 }
 
-constexpr std::size_t maxComponnents = 32;
-using Signature = std::bitset<maxComponnents>;
-using ComponentArray = std::array<Component *, maxComponnents>;
+constexpr unsigned char MAX_COMPONENTS = 32;
+using Signature = std::bitset<MAX_COMPONENTS>;
+using ComponentArray = std::array<Component *, MAX_COMPONENTS>;
 
 class EntityManager {
 public:
@@ -32,7 +32,7 @@ public:
   Signature getSignature(Entity entity);
 
 private:
-  std::vector<Entity> entities;
-  std::array<Signature, MAX_ENTITIES> signatures;
-  static Entity nextEntityId;
+  std::bitset<MAX_ENTITIES> avaliableEntities;
+  Signature signatures[MAX_COMPONENTS];
+  unsigned short activeEntitiesCount;
 };

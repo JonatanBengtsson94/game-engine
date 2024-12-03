@@ -1,17 +1,21 @@
 #include "entity_manager.h"
-
-Entity EntityManager::nextEntityId = 0;
+#include <iostream>
 
 Entity EntityManager::createEntity() {
-  if (nextEntityId >= MAX_ENTITIES) {
-    // TODO: Throw some error
+  if (activeEntitiesCount >= MAX_ENTITIES) {
+    std::cerr << "Error: Maximum number of entities reached." << std::endl;
     return MAX_ENTITIES;
   }
-  return nextEntityId++;
+
+  Entity id = avaliableEntities._Find_first();
+  avaliableEntities.reset(id);
+  ++activeEntitiesCount;
+  return id;
 }
 
 void EntityManager::destroyEntity(Entity entity) {
-  // TODO
+  avaliableEntities.set(entity);
+  --activeEntitiesCount;
 }
 
 void EntityManager::setSignature(Entity entity, Signature signature) {}
