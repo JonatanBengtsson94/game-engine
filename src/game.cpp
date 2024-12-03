@@ -1,16 +1,16 @@
 #include "game.h"
 #include "game_object.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_error.h>
+#include <SDL2/SDL_render.h>
 #include <SDL2/SDL_timer.h>
-#include <iostream>
+#include <SDL2/SDL_video.h>
+#include <stdexcept>
+#include <string.h>
 
 SDL_Renderer Game::*renderer = NULL;
 
-Game::Game() {}
-Game::~Game() {}
-
-bool Game::init(const char *title, int xpos, int ypos, int width, int height,
-                bool fullscreen) {
+Game::Game(const char *title, int x, int y, int w, int h, bool fullscreen) {
 
   int flags = 0;
   if (fullscreen) {
@@ -18,28 +18,32 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
   }
 
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-    std::cerr << "Error initializing SDL: " << SDL_GetError() << std::endl;
-    system("pause");
-    return false;
+    const char *error_message = SDL_GetError();
+    throw std::runtime_error("Error initializing SDL: " +
+                             std::string(SDL_GetError()));
   }
 
-  window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
+  window = SDL_CreateWindow(title, x, y, w, h, flags);
   if (!window) {
-    std::cerr << "Error creating window: " << SDL_GetError() << std::endl;
-    system("pause");
-    return false;
+    const char *error_message = SDL_GetError();
+    throw std::runtime_error("Error creating window: " +
+                             std::string(SDL_GetError()));
   }
 
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
   if (!renderer) {
-    std::cerr << "Error creating renderer: " << SDL_GetError() << std::endl;
-    system("pause");
-    return false;
+    throw std::runtime_error("Error creating renderer: " +
+                             std::string(SDL_GetError()));
   }
 
   lastUpdate = 0;
   isRunning = true;
-  return true;
+}
+
+Game::~Game() {
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
 }
 
 void Game::addGameObject(GameObject *obj) { gameObjects.push_back(obj); }
@@ -73,9 +77,3 @@ void Game::render() {
 }
 
 bool Game::running() { return isRunning; }
-
-void Game::clean() {
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
-  SDL_Quit();
-}

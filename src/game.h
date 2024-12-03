@@ -7,9 +7,8 @@ class GameObject;
 
 class Game {
 public:
-  Game();
+  Game(const char *title, int x, int y, int w, int h, bool fullscreen);
   ~Game();
-
   static SDL_Renderer *renderer;
   bool init(const char *title, int xpos, int ypos, int width, int height,
             bool fullscreen);
@@ -17,7 +16,6 @@ public:
   void handleEvents();
   void update();
   void render();
-  void clean();
   bool running();
 
 private:
