@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include <SDL2/SDL_render.h>
 #include <vector>
@@ -27,5 +26,3 @@ private:
   Uint32 lastUpdate;
   std::vector<GameObject *> gameObjects;
 };
-
-#endif

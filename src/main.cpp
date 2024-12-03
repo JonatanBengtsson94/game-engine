@@ -6,7 +6,7 @@ Game *game = NULL;
 int main() {
   game = new Game();
 
-  if (!game->init("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
+  if (!game->init("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
                   800, false)) {
     return 1;
   }

@@ -1,5 +1,4 @@
-#ifndef GAME_OBJECT_H
-#define GAME_OBJECT_H
+#pragma once
 
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
@@ -18,5 +17,3 @@ private:
   SDL_Texture *texture;
   SDL_Rect srcRect, destRect;
 };
-
-#endif
