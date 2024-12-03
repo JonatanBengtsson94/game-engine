@@ -9,7 +9,7 @@ class Component;
 using Entity = unsigned short;
 const Entity MAX_ENTITIES = 5000;
 
-using ComponentId = std::uint8_t;
+using ComponentId = unsigned char;
 inline ComponentId getComponentId() {
   static ComponentId lastId = 0;
   return lastId++;
