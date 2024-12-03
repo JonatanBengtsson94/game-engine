@@ -26,6 +26,7 @@ using ComponentArray = std::array<Component *, MAX_COMPONENTS>;
 
 class EntityManager {
 public:
+  EntityManager();
   Entity createEntity();
   void destroyEntity(Entity entity);
   void setSignature(Entity entity, Signature signature);

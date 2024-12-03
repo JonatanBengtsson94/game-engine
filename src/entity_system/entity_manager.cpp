@@ -1,10 +1,14 @@
 #include "entity_manager.h"
-#include <iostream>
+#include <stdexcept>
+
+EntityManager::EntityManager() {
+  activeEntitiesCount = 0;
+  avaliableEntities.set();
+}
 
 Entity EntityManager::createEntity() {
   if (activeEntitiesCount >= MAX_ENTITIES) {
-    std::cerr << "Error: Maximum number of entities reached." << std::endl;
-    return MAX_ENTITIES;
+    throw std::runtime_error("Error: Maximum of entities reached.");
   }
 
   Entity id = avaliableEntities._Find_first();
