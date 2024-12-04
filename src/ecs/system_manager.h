@@ -3,8 +3,6 @@
 #include "types.h"
 #include <vector>
 
-using SystemId = unsigned char;
-
 class System {
 public:
   std::vector<Entity> entities;

@@ -16,3 +16,5 @@ template <typename T> inline ComponentId getComponentId() noexcept {
 
 using Signature = unsigned int;
 constexpr unsigned int BITS_IN_SIGNATURE = sizeof(Signature) * 8;
+
+using SystemId = unsigned char;
