@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <vector>
 
+using SystemId = unsigned char;
+
 class System {
 public:
   std::vector<Entity> entities;
@@ -12,11 +14,12 @@ public:
 
 class SystemManager {
 public:
-  template <typename T> T *RegisterSystem();
-  template <typename T> void SetSignature(Signature signature);
-  void EntityDestoyed(Entity entity);
+  template <typename T> SystemId getSystemId() noexcept;
+  void setSignature(SystemId system, Signature signature);
+  Signature getSignature(SystemId system);
 
 private:
-  std::unordered_map<const char *, Signature> signatures;
-  std::unordered_map<const char *, System *> systems;
+  static SystemId lastSystemId;
+  SystemId generateSystemId();
+  Signature systemSignatures[BITS_IN_SIGNATURE];
 };

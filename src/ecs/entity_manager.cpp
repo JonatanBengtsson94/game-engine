@@ -23,9 +23,9 @@ void EntityManager::destroyEntity(Entity entity) {
 }
 
 void EntityManager::setSignature(Entity entity, Signature signature) {
-  signatures[entity] = signature;
+  entitySignatures[entity] = signature;
 }
 
 Signature EntityManager::getSignature(Entity entity) {
-  return signatures[entity];
+  return entitySignatures[entity];
 }

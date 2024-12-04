@@ -1,14 +1,18 @@
 #include "system_manager.h"
 
-template <typename T> T *SystemManager::RegisterSystem() {
-  const char *typeName = typeid(T).name();
-  auto system = new T();
-  systems.insert({typeName, system});
+SystemId lastSystemId = 0;
+
+template <typename T> SystemId SystemManager::getSystemId() noexcept {
+  static SystemId typeId = generateSystemId();
+  return typeId;
 }
 
-template <typename T> void SystemManager::SetSignature(Signature signature) {
-  const char *typeName = typeid(T).name();
-  signatures.insert({typeName, signature});
+SystemId generateSystemId() { return lastSystemId++; }
+
+void SystemManager::setSignature(SystemId system, Signature signature) {
+  systemSignatures[system] = signature;
 }
 
-void SystemManager::EntityDestoyed(Entity entity) {}
+Signature SystemManager::getSignature(SystemId system) {
+  return systemSignatures[system];
+}

@@ -1,10 +1,5 @@
 #pragma once
 
-#include <array>
-#include <bitset>
-
-class Component;
-
 using Entity = unsigned short;
 static constexpr Entity MAX_ENTITIES = 65535;
 
@@ -19,9 +14,8 @@ template <typename T> inline ComponentId getComponentId() noexcept {
   return typeId;
 }
 
-constexpr unsigned char MAX_COMPONENTS = 255;
-using Signature = std::bitset<MAX_COMPONENTS>;
-using ComponentArray = std::array<Component *, MAX_COMPONENTS>;
+using Signature = unsigned int;
+constexpr unsigned int BITS_IN_SIGNATURE = sizeof(Signature) * 8;
 
 class EntityManager {
 public:
@@ -33,6 +27,6 @@ public:
 
 private:
   unsigned short avaliableEntities;
-  Signature signatures[MAX_COMPONENTS];
+  Signature entitySignatures[MAX_ENTITIES];
   unsigned short activeEntitiesCount;
 };
