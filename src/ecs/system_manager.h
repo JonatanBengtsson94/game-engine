@@ -1,8 +1,6 @@
 #pragma once
 
-#include "entity_manager.h"
-#include <memory>
-#include <unordered_map>
+#include "types.h"
 #include <vector>
 
 using SystemId = unsigned char;

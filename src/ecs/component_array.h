@@ -1,7 +1,8 @@
 #pragma once
 
-#include "entity_manager.h"
 #include <vector>
+
+typedef unsigned short Entity;
 
 template <typename T> class ComponentArray {
 public:
