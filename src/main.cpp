@@ -1,15 +1,16 @@
+#include "./ecs/entity_manager.h"
 #include "game.h"
 #include <SDL2/SDL_video.h>
 
+EntityManager *entityManager;
 Game *game = NULL;
 
 int main() {
-  game = new Game();
+  game = new Game("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
+                  800, false);
 
-  if (!game->init("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
-                  800, false)) {
-    return 1;
-  }
+  entityManager = new EntityManager();
+  Entity racket = entityManager->createEntity();
 
   while (game->running()) {
     game->handleEvents();
@@ -17,7 +18,8 @@ int main() {
     game->render();
   }
 
-  game->clean();
+  delete entityManager;
+  delete game;
 
   return 0;
 }

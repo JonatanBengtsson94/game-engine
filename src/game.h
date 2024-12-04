@@ -12,7 +12,6 @@ public:
   static SDL_Renderer *renderer;
   bool init(const char *title, int xpos, int ypos, int width, int height,
             bool fullscreen);
-  void addGameObject(GameObject *obj);
   void handleEvents();
   void update();
   void render();

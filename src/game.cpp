@@ -1,5 +1,4 @@
 #include "game.h"
-#include "game_object.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_render.h>
@@ -46,12 +45,9 @@ Game::~Game() {
   SDL_Quit();
 }
 
-void Game::addGameObject(GameObject *obj) { gameObjects.push_back(obj); }
-
 void Game::handleEvents() {
   SDL_Event e;
 
-  // Event Loop
   while (SDL_PollEvent(&e) != 0) {
     if (e.type == SDL_QUIT) {
       isRunning = false;
@@ -63,16 +59,10 @@ void Game::update() {
   float time = SDL_GetTicks();
   float deltaTime = (time - lastUpdate) / 1000.0f;
   lastUpdate = time;
-  for (auto &obj : gameObjects) {
-    obj->update(deltaTime);
-  }
 }
 
 void Game::render() {
   SDL_RenderClear(renderer);
-  for (auto &obj : gameObjects) {
-    obj->render();
-  }
   SDL_RenderPresent(renderer);
 }
 
