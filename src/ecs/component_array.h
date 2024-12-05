@@ -1,8 +1,11 @@
 #pragma once
 
+#include "types.h"
 #include <vector>
 
-typedef unsigned short Entity;
+class ComponentArrayBase {
+  virtual ~ComponentArrayBase() = default;
+};
 
 template <typename T> class ComponentArray {
 public:

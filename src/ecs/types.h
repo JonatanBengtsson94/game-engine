@@ -18,3 +18,12 @@ using Signature = unsigned int;
 constexpr unsigned int BITS_IN_SIGNATURE = sizeof(Signature) * 8;
 
 using SystemId = unsigned char;
+inline ComponentId getSystemId() {
+  static SystemId lastId = 0;
+  return lastId++;
+}
+
+template <typename T> inline ComponentId getSystemId() noexcept {
+  static SystemId typeId = getSystemId();
+  return typeId;
+}
